@@ -9,6 +9,16 @@ happiness = pd.read_csv('2019.csv')
 cost_of_living = pd.read_csv('Cost_of_Living_Index_by_Country_2024.csv')  # Данные стоимости жизни по странам
 pollution = pd.read_csv('global_air_pollution_dataset.csv')  # Загрязнение воздуха по странам
 
+# Получение списка столбцов для каждого датасета
+happiness_columns = happiness.columns.tolist()
+cost_of_living_columns = cost_of_living.columns.tolist()
+pollution_columns = pollution.columns.tolist()
+
+# Вывод столбцов
+print("Столбцы в датасете Happiness:", happiness_columns)
+print("Столбцы в датасете Cost of Living:", cost_of_living_columns)
+print("Столбцы в датасете Pollution:", pollution_columns)
+
 # Переименование столбца в датасете Happiness
 happiness.rename(columns={'Country or region': 'Country'}, inplace=True)
 
@@ -120,3 +130,49 @@ st.map(filtered_data[['latitude', 'longitude']])
 # Визуализация статистики
 st.subheader("Гистограмма уровня счастья")
 st.bar_chart(filtered_data[['Country', 'Score']].set_index('Country'))
+
+
+
+
+
+# Загрузка данных
+happiness = pd.read_csv('2019.csv')
+cost_of_living = pd.read_csv('Cost_of_Living_Index_by_Country_2024.csv')  # Данные стоимости жизни по странам
+pollution = pd.read_csv('global_air_pollution_dataset.csv')  # Загрязнение воздуха по странам
+
+# Переименование столбца в датасете Happiness
+happiness.rename(columns={'Country or region': 'Country'}, inplace=True)
+
+# Удаление дубликатов по странам
+happiness = happiness.drop_duplicates(subset='Country')
+cost_of_living = cost_of_living.drop_duplicates(subset='Country')
+pollution = pollution.drop_duplicates(subset='Country')
+
+# Объединение по странам
+merged_data = happiness.merge(cost_of_living, on='Country').merge(pollution, on='Country')
+
+# Удаление строк с пропусками
+merged_data.dropna(inplace=True)
+
+# Выбор интересующих признаков
+features = ['Score', 'Cost of Living Index', 'AQI Value']
+
+# Нормализация
+scaler = MinMaxScaler()
+normalized_data = pd.DataFrame(
+    scaler.fit_transform(merged_data[features]),
+    columns=features
+)
+
+# Добавление столбца с суммой нормализованных данных
+merged_data['Total Score'] = normalized_data.sum(axis=1)
+
+top_countries = merged_data[['Country', 'Total Score']].sort_values(by='Total Score', ascending=False).head(10)
+
+# Также можно использовать matplotlib
+st.subheader("Гистограмма топ-10 стран для перезда")
+fig, ax = plt.subplots()
+top_countries.plot(kind='bar', x='Country', y='Total Score', ax=ax, legend=False)
+ax.set_ylabel("Total Score")
+ax.set_title("Top 10 Countries")
+st.pyplot(fig)
