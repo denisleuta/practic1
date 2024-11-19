@@ -176,3 +176,34 @@ top_countries.plot(kind='bar', x='Country', y='Total Score', ax=ax, legend=False
 ax.set_ylabel("Total Score")
 ax.set_title("Top 10 Countries")
 st.pyplot(fig)
+
+
+
+
+
+
+# Диаграмма рассеяния: Стоимость жизни vs Уровень счастья
+st.subheader("Зависимость уровня счастья от стоимости жизни")
+fig, ax = plt.subplots()
+scatter = ax.scatter(merged_data['Cost of Living Index'], merged_data['Score'], c=merged_data['AQI Value'], cmap='coolwarm')
+fig.colorbar(scatter, ax=ax, label='AQI Value')
+ax.set_xlabel('Cost of Living Index')
+ax.set_ylabel('Happiness Score')
+ax.set_title('Happiness vs Cost of Living')
+st.pyplot(fig)
+
+
+
+import seaborn as sns
+
+# Корреляционная матрица
+corr = merged_data[['Score', 'Cost of Living Index', 'AQI Value', 'GDP per capita', 'Social support', 'Healthy life expectancy']].corr()
+
+# Тепловая карта корреляций
+st.subheader("Тепловая карта корреляций между показателями")
+fig, ax = plt.subplots(figsize=(10, 8))
+sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", ax=ax)
+ax.set_title("Корреляции между показателями")
+st.pyplot(fig)
+
+
