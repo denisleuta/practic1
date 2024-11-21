@@ -200,6 +200,13 @@ for i, (x, y) in enumerate(data['Cluster']):
     ax.text(x, y, data['Country'].iloc[i], fontsize=8, ha='center', va='center')
 st.pyplot(fig)
 
+# ---- Генерация карты с использованием Plotly ----
+fig_map = px.scatter_mapbox(filtered_data, lat="latitude", lon="longitude", color="Cluster", hover_name="Country", 
+                            color_continuous_scale=px.colors.qualitative.Set1, zoom=2, height=600)
+
+fig_map.update_layout(mapbox_style="carto-positron", title="Географическое распределение стран по кластерам")
+st.plotly_chart(fig_map)
+
 # ---- Тепловая карта корреляций ----
 st.subheader("Тепловая карта корреляций")
 st.markdown("""
@@ -253,3 +260,34 @@ plt.tight_layout()
 
 # Отображаем график
 st.pyplot(fig)
+
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
+
+# Подготовка данных
+X = data[['Cost of Living Index', 'AQI Value', 'GDP per capita', 'Social support', 'Healthy life expectancy']]
+y = data['Score']
+
+# Разделение на тренировочную и тестовую выборки
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Обучение модели
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Предсказание
+predicted_scores = model.predict(X_test)
+
+# Добавление возможности предсказания через Streamlit
+st.subheader("Предсказание уровня счастья")
+st.markdown("""
+    Введите значения для различных факторов, чтобы предсказать уровень счастья.
+""")
+cost_of_living = st.number_input("Индекс стоимости жизни", min_value=0.0, max_value=100.0, value=50.0)
+aqi_value = st.number_input("Индекс загрязнения (AQI)", min_value=0.0, max_value=500.0, value=50.0)
+gdp_per_capita = st.number_input("ВВП населения", min_value=0.0, value=1.3)
+social_support = st.number_input("Социальная поддержка", min_value=0.0, max_value=3.0, value=1.4)
+health_expectancy = st.number_input("Ожидаемая продолжительность здоровой жизни", min_value=0.0, max_value=2.0, value=0.8)
+
+predicted_score = model.predict([[cost_of_living, aqi_value, gdp_per_capita, social_support, health_expectancy]])
+st.write(f"Предсказанный уровень счастья: {predicted_score[0]:.2f}")
