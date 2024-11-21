@@ -45,6 +45,16 @@ def normalize_data(data, features):
     normalized = pd.DataFrame(scaler.fit_transform(data[features]), columns=features)
     return normalized
 
+# ---- Веса для показателей ----
+WEIGHTS = {
+    'Score': 0.2,                     # Уровень счастья
+    'Cost of Living Index': 0.15,     # Стоимость жизни
+    'GDP per capita': 0.2,            # Экономическое состояние
+    'Healthy life expectancy': 0.2,   # Здоровье
+    'Social support': 0.15,           # Социальная поддержка
+    'PM2.5 AQI Value': 0.1            # Экология
+}
+
 # ---- Кластеризация (Карта Кохонена) ----
 @st.cache_resource
 def train_som(data, features, som_size=(10, 10)):
@@ -64,6 +74,19 @@ def train_som(data, features, som_size=(10, 10)):
 features = ['Score', 'Cost of Living Index', 'AQI Value']
 som, clusters = train_som(data, features)
 data['Cluster'] = clusters
+
+# ---- Нормализация всех показателей ----
+selected_features = list(WEIGHTS.keys())
+
+# Нормализуем данные
+normalized_data = normalize_data(data, selected_features)
+
+# Применяем веса
+for feature, weight in WEIGHTS.items():
+    normalized_data[feature] *= weight
+
+# Считаем итоговый рейтинг
+data['Total Score'] = normalized_data.sum(axis=1)
 
 # ---- Интерфейс Streamlit ----
 st.title("Анализ данных о счастье, стоимости жизни и загрязнении")
@@ -127,7 +150,6 @@ st.pyplot(fig)
 
 # ---- Топ-10 стран ----
 st.subheader("Топ-10 стран для переезда")
-data['Total Score'] = normalize_data(data, features).sum(axis=1)
 top_countries = data[['Country', 'Total Score']].sort_values(by='Total Score', ascending=False).head(10)
 
 fig, ax = plt.subplots()
