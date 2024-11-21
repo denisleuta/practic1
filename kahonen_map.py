@@ -1,5 +1,7 @@
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 from minisom import MiniSom
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -26,10 +28,10 @@ st.markdown("""
 @st.cache_data
 def load_data():
     # Основные датасеты
-    happiness = pd.read_csv('2019.csv')
-    cost_of_living = pd.read_csv('Cost_of_Living_Index_by_Country_2024.csv')
-    pollution = pd.read_csv('global_air_pollution_dataset.csv')
-    coordinates = pd.read_csv('World Cities Nearest Stations.csv')
+    happiness = pd.read_csv('data/2019.csv')
+    cost_of_living = pd.read_csv('data/Cost_of_Living_Index_by_Country_2024.csv')
+    pollution = pd.read_csv('data/global_air_pollution_dataset.csv')
+    coordinates = pd.read_csv('data/World Cities Nearest Stations.csv')
 
     # Предобработка данных
     happiness.rename(columns={'Country or region': 'Country'}, inplace=True)
@@ -261,8 +263,7 @@ plt.tight_layout()
 # Отображаем график
 st.pyplot(fig)
 
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+# ---- Модель предсказывающая уровень счастья населения ----
 
 # Подготовка данных
 X = data[['Cost of Living Index', 'AQI Value', 'GDP per capita', 'Social support', 'Healthy life expectancy']]

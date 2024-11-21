@@ -1,0 +1,9 @@
+pandas
+scikit-learn
+minisom
+matplotlib
+seaborn
+streamlit
+plotly
+Pillow
+pre-commit
