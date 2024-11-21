@@ -20,7 +20,9 @@ data["Cluster"] = clusters
 st.title("Анализ стран по счастью, стоимости жизни и загрязнению воздуха")
 
 # Фильтры
-min_score = st.sidebar.slider("Минимальный уровень счастья", min_value=0.0, max_value=10.0, value=5.0)
+min_score = st.sidebar.slider(
+    "Минимальный уровень счастья", min_value=0.0, max_value=10.0, value=5.0
+)
 filtered_data = data[data["Score"] >= min_score]
 
 # Гистограмма уровня счастья

@@ -1,6 +1,7 @@
 from minisom import MiniSom
 from .normalization import normalize_data
 
+
 def train_som(data, features, som_size=(10, 10)):
     normalized_data = normalize_data(data, features).values
 

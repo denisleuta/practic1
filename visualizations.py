@@ -10,14 +10,16 @@ def show_background(image_path):
     plt.axis("off")
     plt.show()
 
+
 # Гистограмма уровня счастья
 def plot_happiness_histogram(data):
     plt.figure(figsize=(10, 6))
-    plt.hist(data["Score"], bins=20, color='skyblue', edgecolor='black')
+    plt.hist(data["Score"], bins=20, color="skyblue", edgecolor="black")
     plt.title("Распределение уровня счастья")
     plt.xlabel("Уровень счастья")
     plt.ylabel("Частота")
     plt.show()
+
 
 # Карта Кохонена
 def plot_som_map(som, data, clusters):
@@ -27,6 +29,7 @@ def plot_som_map(som, data, clusters):
     for i, (x, y) in enumerate(clusters):
         ax.text(x, y, data["Country"].iloc[i], fontsize=8, ha="center", va="center")
     plt.show()
+
 
 # Генерация карты с использованием Plotly
 def plot_map(data, filtered_data):
