@@ -1,9 +1,9 @@
-pandas
-scikit-learn
-minisom
 matplotlib
+minisom
+pandas
+Pillow
+plotly
+pre-commit
+scikit-learn
 seaborn
 streamlit
-plotly
-Pillow
-pre-commit
