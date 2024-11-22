@@ -33,7 +33,7 @@ pip install -r requirements.txt
 ## Для запуска приложения используйте команду:
 
 ```shell
-streamlit run app.py
+streamlit run kohonen_map.py
 ```
 После этого приложение откроется в вашем браузере.
 
@@ -41,18 +41,12 @@ streamlit run app.py
 
 ```text
 .
-├── .github - файлы для настройки CI и проверок
 ├── data - исходные данные для анализа
 │   ├── 2019.csv
 │   ├── Cost_of_Living_Index_by_Country_2024.csv
 │   ├── global_air_pollution_dataset.csv
 │   └── World_Cities_Nearest_Stations.csv
-├── som_clustering.py - реализация карты Кохонена (SOM)
-├── normalization.py - функции для нормализации данных
-├── app.py - основной файл приложения на Streamlit
-├── requirements.txt - зависимости для установки
-├── linear_model.py - модель для предсказания уровня счастья
-├── visualizations.py - визуализация streamlit
+├── kohonen_map.py файл с проектом
 └── README.md - основная информация о проекте
 ```
 
