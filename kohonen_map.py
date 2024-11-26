@@ -52,7 +52,7 @@ def load_data():
     data = (
         happiness.merge(cost_of_living, on="Country", how="inner")
         .merge(pollution, on="Country", how="inner")
-        .merge(coordinates, on="Country", how="left")  # Добавляем координаты
+        .merge(coordinates, on="Country", how="left")
     )
 
     # Удаление строк с пропущенными значениями
@@ -74,10 +74,10 @@ def normalize_data(data, features):
 WEIGHTS = {
     "Score": 0.2,  # Уровень счастья
     "Cost of Living Index": 0.15,  # Стоимость жизни
-    "GDP per capita": 0.2,  # Экономическое состояние
+    "GDP per capita": 0.2,  # ВВП населения
     "Healthy life expectancy": 0.2,  # Здоровье
     "Social support": 0.15,  # Социальная поддержка
-    "PM2.5 AQI Value": 0.1,  # Экология
+    "PM2.5 AQI Value": 0.1,  # Качество воздуха
 }
 
 # ---- Кластеризация (Карта Кохонена) ----
@@ -96,7 +96,7 @@ def train_som(data, features, som_size=(10, 10)):
     som.random_weights_init(normalized_data)
 
     # Обучение
-    som.train_random(data=normalized_data, num_iteration=1000)
+    som.train_random(data=normalized_data, num_iteration=2000)
 
     # Присвоение кластеров
     clusters = [som.winner(row) for row in normalized_data]
