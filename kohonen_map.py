@@ -72,17 +72,17 @@ def normalize_data(data, features):
 
 # ---- Веса для показателей ----
 WEIGHTS = {
-    "Score": 0.2,  # Уровень счастья
+    "Score": 0.25,  # Уровень счастья
     "Cost of Living Index": 0.15,  # Стоимость жизни
     "GDP per capita": 0.2,  # ВВП населения
     "Healthy life expectancy": 0.2,  # Здоровье
-    "Social support": 0.15,  # Социальная поддержка
+    "Social support": 0.1,  # Социальная поддержка
     "PM2.5 AQI Value": 0.1,  # Качество воздуха
 }
 
 # ---- Кластеризация (Карта Кохонена) ----
 @st.cache_resource
-def train_som(data, features, som_size=(10, 10)):
+def train_som(data, features, som_size=(20, 20)):
     normalized_data = normalize_data(data, features).values
 
     # Инициализация карты
@@ -289,10 +289,10 @@ fig = px.scatter(
 st.plotly_chart(fig)
 
 # ---- Топ-10 стран ----
-st.subheader("Топ-10 стран для переезда")
+st.subheader("Лидеры по качеству жизни: Топ-10 стран")
 st.markdown(
     """
-    На этом графике представлены 10 лучших стран для переезда на основе общего рейтинга, который включает счастье, стоимость жизни и загрязнение воздуха.
+    На этом графике представлены 10 лучших стран по качеству жизни на основе общего рейтинга, который включает счастье, стоимость жизни и экологию.
 """
 )
 top_countries = (
@@ -327,7 +327,7 @@ fig.colorbar(
 
 # Настройки заголовков и подписей
 ax.set_xlabel("Total Score")
-ax.set_title("Топ-10 стран для переезда", fontsize=16, fontweight="bold")
+ax.set_title("Лидеры по качеству жизни: Топ-10 стран", fontsize=16, fontweight="bold")
 ax.set_ylabel("Страна")
 
 # Добавляем значения на барах
