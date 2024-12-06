@@ -45,6 +45,7 @@ streamlit run kohonen_map.py
 │   ├── 2019.csv
 │   ├── Cost_of_Living_Index_by_Country_2024.csv
 │   ├── global_air_pollution_dataset.csv
+|   ├── merged_country_data.csv
 │   └── World_Cities_Nearest_Stations.csv
 ├── kohonen_map.py файл с проектом
 └── README.md - основная информация о проекте
