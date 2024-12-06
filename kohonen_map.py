@@ -30,10 +30,13 @@ st.markdown(
 @st.cache_data
 def load_data():
     # Основные датасеты
-    happiness = pd.read_csv("data/2019.csv")
+    happiness = pd.read_csv("data/happiness_2019.csv")
     cost_of_living = pd.read_csv("data/Cost_of_Living_Index_by_Country_2024.csv")
     pollution = pd.read_csv("data/global_air_pollution_dataset.csv")
     coordinates = pd.read_csv("data/World Cities Nearest Stations.csv")
+
+    # Объедененные данные и измененные данные
+    additional_data = pd.read_csv("data/merged_country_data.csv")
 
     # Предобработка данных
     happiness.rename(columns={"Country or region": "Country"}, inplace=True)
@@ -42,18 +45,20 @@ def load_data():
         inplace=True,
     )
 
+    additional_data.rename(columns={"country_name": "Country"}, inplace=True)
+
     # Удаление дубликатов
-    happiness = happiness.drop_duplicates(subset="Country")
-    cost_of_living = cost_of_living.drop_duplicates(subset="Country")
-    pollution = pollution.drop_duplicates(subset="Country")
     coordinates = coordinates.drop_duplicates(subset="Country")
+    additional_data = additional_data.drop_duplicates(subset="Country")
 
     # Объединение данных
-    data = (
+    data1 = (
         happiness.merge(cost_of_living, on="Country", how="inner")
         .merge(pollution, on="Country", how="inner")
         .merge(coordinates, on="Country", how="left")
     )
+
+    data = additional_data.merge(coordinates, on="Country")
 
     # Удаление строк с пропущенными значениями
     data.dropna(inplace=True)

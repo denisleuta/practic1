@@ -95,3 +95,51 @@ Overall rank,Country,Score,GDP per capita,Social support,Healthy life expectancy
 143,Madagascar,3.933,0.274,0.916,0.555,0.148,0.169,0.041,114,24.5,7.8,16.5,24.1,14.3,15.6,Ambovombe,26,Good,0,Good,26,Good,0,Good,20,Good
 146,Zimbabwe,3.663,0.366,1.114,0.433,0.361,0.151,0.089,73,37.2,10.0,24.1,35.5,26.7,26.1,Hwange,44,Good,0,Good,17,Good,0,Good,44,Good
 148,Botswana,3.488,1.041,1.145,0.538,0.455,0.025,0.1,93,30.1,6.1,18.5,30.0,22.5,64.4,Gabane,31,Good,1,Good,18,Good,0,Good,31,Good
+68,Russia,5.648,1.16,1.452,0.792,0.331,0.052,0.027,72,36.8,10.9,24.9,37.4,33.2,45.6,Tver,70,Moderate,2,Good,32,Good,12,Good,70,Moderate
+69,United States,5.647,1.434,1.457,0.915,0.574,0.255,0.146,15,70.8,40.1,56.9,66.3,72.4,121.0,Omaha,51,Moderate,1,Good,30,Good,6,Good,51,Moderate
+70,China,5.634,0.949,1.373,0.758,0.331,0.057,0.1,80,36.4,9.5,24.5,39.0,29.6,54.2,Zibo,125,Unhealthy for Sensitive Groups,3,Good,80,Moderate,15,Moderate,125,Unhealthy for Sensitive Groups
+71,India,5.585,0.693,0.828,0.567,0.521,0.215,0.085,140,21.2,4.5,14.2,22.5,18.7,31.9,Patna,180,Unhealthy,10,Good,32,Good,20,Moderate,180,Unhealthy
+72,Ukraine,5.573,0.856,1.402,0.703,0.251,0.091,0.018,85,29.7,7.2,20.2,31.0,22.4,34.7,Poltava,75,Moderate,1,Good,30,Good,8,Good,75,Moderate
+73,South Korea,5.561,1.301,1.403,1.002,0.344,0.067,0.145,34,60.3,28.1,45.9,58.7,63.5,81.7,Daegu,88,Moderate,2,Good,40,Good,14,Moderate,88,Moderate
+74,Vietnam,5.534,0.765,1.342,0.652,0.589,0.216,0.049,112,25.9,7.8,17.9,28.6,20.5,39.1,Da Nang,67,Moderate,3,Good,24,Good,6,Good,67,Moderate
+75,Turkey,5.483,1.029,1.349,0.798,0.282,0.066,0.096,50,35.1,12.3,24.9,38.8,31.5,45.8,Antalya,63,Moderate,2,Good,28,Good,5,Good,63,Moderate
+76,Philippines,5.464,0.743,1.216,0.653,0.643,0.121,0.12,120,27.1,8.4,18.7,33.2,19.4,28.8,Davao,74,Moderate,2,Good,25,Good,6,Good,74,Moderate
+77,South Africa,5.436,0.96,1.205,0.61,0.439,0.106,0.085,65,34.9,11.8,24.1,37.5,28.9,38.6,Bloemfontein,55,Moderate,2,Good,22,Good,8,Good,55,Moderate
+78,Indonesia,5.384,0.789,1.218,0.611,0.554,0.245,0.118,130,23.2,5.3,14.5,26.8,16.7,29.4,Medan,93,Moderate,3,Good,20,Good,10,Good,93,Moderate
+79,Egypt,5.356,0.799,1.135,0.576,0.364,0.062,0.097,125,24.9,6.8,17.3,28.5,20.3,34.5,Minya,110,Unhealthy for Sensitive Groups,4,Good,34,Good,12,Moderate,110,Unhealthy for Sensitive Groups
+80,Nigeria,5.297,0.584,1.09,0.497,0.406,0.231,0.102,145,18.1,3.5,11.2,20.5,15.9,25.7,Kano,150,Unhealthy,6,Good,42,Good,18,Moderate,150,Unhealthy
+81,Argentina,5.276,1.092,1.432,0.881,0.471,0.066,0.05,98,29.4,7.6,18.9,29.7,24.8,41.5,Rosario,50,Moderate,1,Good,24,Good,5,Good,50,Moderate
+82,United Kingdom,5.254,1.333,1.504,0.978,0.487,0.253,0.111,28,63.4,28.2,46.1,57.6,61.3,116.9,York,35,Good,1,Good,22,Good,3,Good,35,Good
+83,Bolivia,5.247,0.736,1.225,0.677,0.458,0.092,0.071,105,24.8,5.9,15.7,28.9,18.3,27.6,Santa Cruz,95,Moderate,2,Good,30,Good,8,Good,95,Moderate
+84,Algeria,5.233,0.828,1.31,0.647,0.356,0.045,0.051,115,22.3,5.4,14.9,25.6,17.9,32.5,Setif,98,Moderate,3,Good,28,Good,9,Good,98,Moderate
+85,Saudi Arabia,5.209,1.403,1.357,0.795,0.439,0.08,0.132,48,45.3,11.3,29.0,41.6,30.9,134.9,Riyadh,122,Unhealthy for Sensitive Groups,2,Good,50,Good,10,Good,122,Unhealthy for Sensitive Groups
+86,Iran,5.168,1.003,1.219,0.702,0.317,0.041,0.075,119,26.5,8.6,18.4,30.1,23.8,39.7,Shiraz,105,Unhealthy for Sensitive Groups,4,Good,45,Good,15,Moderate,105,Unhealthy for Sensitive Groups
+87,Malaysia,5.161,1.112,1.407,0.726,0.615,0.153,0.064,92,35.7,10.6,24.5,41.3,30.8,53.4,Johor Bahru,73,Moderate,2,Good,34,Good,5,Good,73,Moderate
+88,Peru,5.157,0.882,1.248,0.743,0.53,0.093,0.085,95,26.1,6.4,17.3,27.5,21.2,35.6,Arequipa,83,Moderate,3,Good,36,Good,11,Moderate,83,Moderate
+89,Colombia,5.148,0.982,1.322,0.729,0.558,0.119,0.087,80,24.4,5.9,15.9,26.6,20.8,33.2,Bucaramanga,78,Moderate,2,Good,25,Good,8,Good,78,Moderate
+90,Chile,5.131,1.159,1.401,0.909,0.441,0.066,0.062,55,47.3,13.4,30.4,40.1,36.8,52.1,Valparaiso,66,Moderate,1,Good,30,Good,5,Good,66,Moderate
+91,Ecuador,5.112,0.933,1.3,0.746,0.604,0.119,0.064,94,23.9,5.7,15.3,25.7,19.3,32.4,Cuenca,77,Moderate,2,Good,28,Good,6,Good,77,Moderate
+92,Morocco,5.102,0.903,1.257,0.665,0.439,0.04,0.076,100,30.2,8.5,20.2,32.5,25.8,38.9,Fes,72,Moderate,2,Good,30,Good,7,Good,72,Moderate
+93,Nepal,5.081,0.447,1.177,0.579,0.52,0.213,0.071,145,22.5,4.8,14.2,24.3,18.9,30.8,Pokhara,110,Unhealthy for Sensitive Groups,3,Good,40,Good,20,Moderate,110,Unhealthy for Sensitive Groups
+94,Paraguay,5.075,0.946,1.321,0.709,0.562,0.169,0.086,82,22.8,5.3,14.8,23.7,20.1,36.3,Encarnación,70,Moderate,1,Good,22,Good,5,Good,70,Moderate
+95,Uruguay,5.067,1.123,1.451,0.859,0.507,0.128,0.056,53,36.5,9.8,24.3,35.1,31.6,48.2,Salto,58,Moderate,1,Good,20,Good,7,Good,58,Moderate
+96,Kazakhstan,5.062,1.045,1.381,0.754,0.433,0.112,0.104,65,30.4,8.6,19.9,31.2,24.3,50.4,Shymkent,95,Moderate,2,Good,34,Good,12,Moderate,95,Moderate
+97,Belarus,5.041,0.921,1.434,0.728,0.284,0.066,0.06,81,28.6,7.4,19.6,29.3,25.1,39.8,Mogilev,85,Moderate,1,Good,32,Good,9,Good,85,Moderate
+98,Mongolia,5.028,0.893,1.261,0.606,0.422,0.13,0.101,109,24.3,5.9,16.4,28.4,19.8,34.9,Darkhan,120,Unhealthy for Sensitive Groups,5,Good,50,Good,18,Moderate,120,Unhealthy for Sensitive Groups
+99,Sri Lanka,5.018,0.828,1.285,0.719,0.561,0.181,0.072,120,24.8,6.8,16.9,29.1,22.3,38.5,Kandy,92,Moderate,3,Good,30,Good,10,Good,92,Moderate
+100,Uzbekistan,5.002,0.745,1.297,0.688,0.544,0.134,0.091,130,20.2,4.9,13.9,22.3,16.5,28.9,Fergana,88,Moderate,2,Good,25,Good,8,Good,88,Moderate
+101,Kenya,4.988,0.563,1.205,0.539,0.491,0.235,0.091,145,21.4,5.2,14.3,23.1,17.2,29.7,Kisumu,135,Unhealthy for Sensitive Groups,6,Good,40,Good,18,Moderate,135,Unhealthy for Sensitive Groups
+102,Tanzania,4.958,0.478,1.12,0.505,0.512,0.196,0.083,150,17.5,3.8,11.5,19.6,15.3,26.7,Mwanza,125,Unhealthy for Sensitive Groups,4,Good,38,Good,15,Moderate,125,Unhealthy for Sensitive Groups
+103,Bangladesh,4.949,0.537,1.201,0.603,0.424,0.115,0.072,135,22.8,5.4,14.7,24.3,19.1,31.4,Sylhet,150,Unhealthy,5,Good,45,Good,20,Moderate,150,Unhealthy
+104,Zimbabwe,4.906,0.366,1.033,0.431,0.322,0.179,0.096,161,19.8,4.3,12.9,21.5,16.4,27.8,Bulawayo,130,Unhealthy for Sensitive Groups,3,Good,35,Good,14,Moderate,130,Unhealthy for Sensitive Groups
+105,Uganda,4.885,0.48,1.08,0.443,0.436,0.229,0.1,149,20.5,5.1,14.1,22.8,17.8,30.1,Gulu,140,Unhealthy for Sensitive Groups,6,Good,38,Good,16,Moderate,140,Unhealthy for Sensitive Groups
+106,Botswana,4.854,1.026,1.203,0.497,0.457,0.099,0.106,114,33.4,8.9,22.3,30.7,28.2,40.5,Francistown,65,Moderate,2,Good,28,Good,10,Good,65,Moderate
+107,Gabon,4.829,1.06,1.217,0.519,0.451,0.085,0.105,125,28.7,7.2,18.6,27.4,25.6,36.9,Port-Gentil,72,Moderate,3,Good,30,Good,8,Good,72,Moderate
+108,Mali,4.78,0.37,0.946,0.356,0.405,0.177,0.083,170,16.3,3.5,11.2,18.2,13.9,25.4,Bamako,155,Unhealthy,7,Moderate,50,Good,22,Moderate,155,Unhealthy
+109,Angola,4.766,0.715,1.086,0.463,0.405,0.125,0.1,155,22.9,5.6,14.8,25.1,20.2,33.3,Luanda,90,Moderate,4,Good,35,Good,12,Moderate,90,Moderate
+110,Sierra Leone,4.717,0.268,0.915,0.352,0.389,0.179,0.086,175,14.2,2.8,9.6,16.3,12.8,23.6,Freetown,180,Unhealthy,9,Moderate,55,Good,30,Moderate,180,Unhealthy
+111,Togo,4.695,0.344,1.045,0.406,0.414,0.154,0.09,160,15.8,3.3,10.8,18.7,14.5,26.1,Lomé,145,Unhealthy for Sensitive Groups,5,Good,40,Good,18,Moderate,145,Unhealthy for Sensitive Groups
+112,Lesotho,4.686,0.553,1.193,0.376,0.311,0.079,0.09,135,19.4,4.7,13.6,21.6,18.3,28.3,Maseru,75,Moderate,2,Good,30,Good,10,Good,75,Moderate
+113,Liberia,4.673,0.309,0.938,0.389,0.386,0.165,0.095,175,13.5,2.6,9.1,15.7,12.1,23.1,Monrovia,160,Unhealthy,7,Moderate,50,Good,22,Moderate,160,Unhealthy
+114,Burundi,4.62,0.049,0.627,0.381,0.263,0.155,0.087,175,13.2,2.3,8.7,15.2,11.8,22.5,Bujumbura,170,Unhealthy,8,Moderate,55,Good,25,Moderate,170,Unhealthy
+115,Comoros,4.608,0.418,1.032,0.432,0.379,0.173,0.093,175,16.7,3.4,11.2,18.5,14.2,24.9,Moroni,85,Moderate,3,Good,30,Good,10,Good,85,Moderate
