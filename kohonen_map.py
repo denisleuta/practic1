@@ -1,10 +1,9 @@
 import pandas as pd
-import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import silhouette_score
+import folium
 from sklearn.base import BaseEstimator, ClusterMixin
 from minisom import MiniSom
 from sklearn_som.som import SOM
@@ -248,24 +247,14 @@ st.sidebar.metric(
 )
 
 st.sidebar.metric(
-    label="Среднее ВВП",value=f"{filtered_data['GDP per capita'].mean():.2f}"
+    label="Средний индекс стоимости жизни",
+    value=f"{filtered_data['Cost of Living Index'].mean():.2f}",
 )
 
 st.sidebar.metric(
-    label="Средний индекс загрязнение воздуха",value=f"{filtered_data['AQI Value'].mean():.2f}"
+    label="Средний индекс загрязнение воздуха",
+    value=f"{filtered_data['AQI Value'].mean():.2f}",
 )
-
-# ---- Карта ----
-st.subheader("Карта стран по координатам")
-st.markdown(
-    """
-    На этой карте отображаются страны, которые удовлетворяют выбранным фильтрам, с их географическими координатами.
-"""
-)
-if "latitude" in data.columns and "longitude" in data.columns:
-    st.map(filtered_data[["latitude", "longitude"]])
-else:
-    st.warning("Координаты отсутствуют в данных!")
 
 # ---- Таблица данных ----
 st.subheader("Фильтрованные данные")
@@ -361,94 +350,6 @@ st.markdown(
 """
 )
 
-# ------ График сравнения двух карт Кохонена --------
-def normalize_data(data, features):
-    """Нормализация данных."""
-    return (data[features] - data[features].min()) / (data[features].max() - data[features].min())
-
-def train_minisom_with_error(data, features, som_size=(20, 20), epochs=100):
-    """Обучение MiniSom с расчетом ошибки."""
-    normalized_data = normalize_data(data, features).values
-    som = MiniSom(som_size[0], som_size[1], len(features), sigma=1.0, learning_rate=0.5)
-    som.random_weights_init(normalized_data)
-    
-    quantization_errors = []
-    for epoch in range(epochs):
-        som.train_random(normalized_data, 1)
-        error = np.mean([np.linalg.norm(row - som.weights[som.winner(row)]) for row in normalized_data])
-        quantization_errors.append(error)
-    
-    clusters = [som.winner(row) for row in normalized_data]
-    return som, quantization_errors, clusters
-
-def train_sklearn_som_with_error(data, features, som_size=(20, 20), epochs=100):
-    """Обучение sklearn-SOM с расчетом ошибки."""
-    normalized_data = normalize_data(data, features).values
-    som = SOM(m=som_size[0], n=som_size[1], dim=len(features))
-    
-    quantization_errors = []
-    for epoch in range(epochs):
-        som.fit(normalized_data, epochs=1, shuffle=True)
-        bmus = som.predict(normalized_data)
-        error = np.mean([
-            np.linalg.norm(row - som.weights_[bmus[idx]])
-            for idx, row in enumerate(normalized_data)
-        ])
-        quantization_errors.append(error)
-    
-    clusters = som.predict(normalized_data)
-    return som, quantization_errors, clusters
-
-def main():
-    st.title("Сравнение MiniSom и Sklearn-SOM: График ошибки обучения")
-    st.sidebar.header("Параметры")
-    
-    # Загрузка данных
-    uploaded_file = st.sidebar.file_uploader("Загрузите CSV-файл с данными", type=["csv"])
-    if uploaded_file is not None:
-        import pandas as pd
-        data = pd.read_csv(uploaded_file)
-        st.sidebar.write("Доступные столбцы:", list(data.columns))
-
-        # Выбор признаков и параметров
-        features = st.sidebar.multiselect("Выберите признаки для обучения", options=data.columns)
-        som_size = st.sidebar.slider("Размер SOM", min_value=5, max_value=50, value=20)
-        epochs = st.sidebar.slider("Количество эпох", min_value=10, max_value=500, value=100)
-        
-        if features:
-            # Обучение MiniSom
-            st.subheader("MiniSom: Обучение и ошибка")
-            som_minisom, errors_minisom, clusters_minisom = train_minisom_with_error(data, features, som_size=(som_size, som_size), epochs=epochs)
-            
-            # Обучение sklearn-SOM
-            st.subheader("sklearn-SOM: Обучение и ошибка")
-            som_sklearn, errors_sklearn, clusters_sklearn = train_sklearn_som_with_error(data, features, som_size=(som_size, som_size), epochs=epochs)
-            
-            # График сравнения ошибок
-            st.subheader("График ошибки обучения")
-            fig, ax = plt.subplots(figsize=(10, 6))
-            ax.plot(range(epochs), errors_minisom, label="MiniSom", color="blue")
-            ax.plot(range(epochs), errors_sklearn, label="sklearn-SOM", color="green")
-            ax.set_xlabel("Epochs")
-            ax.set_ylabel("Quantization Error")
-            ax.set_title("Сравнение ошибки обучения: MiniSom vs sklearn-SOM")
-            ax.legend()
-            ax.grid()
-            st.pyplot(fig)
-            
-            # Вывод кластеров
-            st.write("**MiniSom кластеры:**", clusters_minisom[:10]) 
-            st.write("**sklearn-SOM кластеры:**", clusters_sklearn[:10])
-        else:
-            st.warning("Пожалуйста, выберите признаки для обучения.")
-    else:
-        st.info("Загрузите файл с данными, чтобы продолжить.")
-
-if __name__ == "__main__":
-    main()
-
-
-
 # ---- Генерация карты с использованием Plotly ----
 fig_map = px.scatter_mapbox(
     filtered_data,
@@ -538,7 +439,7 @@ sm = plt.cm.ScalarMappable(
         vmin=top_countries["Total Score"].min(), vmax=top_countries["Total Score"].max()
     ),
 )
-sm.set_array([]) 
+sm.set_array([])
 fig.colorbar(
     sm, ax=ax, orientation="horizontal", fraction=0.02, pad=0.1, label="Total Score"
 )
