@@ -6,4 +6,5 @@ plotly
 pre-commit
 scikit-learn
 seaborn
+sklearn_som
 streamlit

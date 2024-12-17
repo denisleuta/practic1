@@ -3,7 +3,6 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
-import folium
 from sklearn.base import BaseEstimator, ClusterMixin
 from minisom import MiniSom
 from sklearn_som.som import SOM
@@ -39,7 +38,6 @@ def load_data():
     pollution = pd.read_csv("data/global_air_pollution_dataset.csv")
     coordinates = pd.read_csv("data/World Cities Nearest Stations.csv")
 
-    # Объедененные данные и измененные данные
     additional_data = pd.read_csv("data/merged_country_data.csv")
 
     # Предобработка данных
@@ -112,14 +110,12 @@ def train_som(data, features, som_size=(20, 20)):
     return som, clusters
 
 
-features = ["Score", "Cost of Living Index", "AQI Value"]
+features = ["Score", "Cost of Living Index", "PM2.5 AQI Value"]
 som, clusters = train_som(data, features)
 data["Cluster"] = clusters
 
 # ---- Нормализация всех показателей ----
 selected_features = list(WEIGHTS.keys())
-
-# Нормализуем данные
 normalized_data = normalize_data(data, selected_features)
 
 # Класс для использования SOM с GridSearchCV
@@ -150,20 +146,17 @@ def train_som_sklearn_with_optimization(data, features, param_grid, cv=5):
         som_sklearn, param_grid, cv=cv, scoring="neg_mean_squared_error"
     )
 
-    # Обучение с оптимизацией гиперпараметров
     grid_search.fit(normalized_data)
 
     # Получаем лучшие параметры и модель
     best_params = grid_search.best_params_
     best_som = grid_search.best_estimator_
 
-    # Получаем кластеризацию
     clusters = best_som.predict(normalized_data)
 
     return best_som, clusters, best_params
 
 
-# Пример сетки гиперпараметров для оптимизации
 param_grid = {
     "m": [10, 20],
     "n": [10, 20],
@@ -176,9 +169,7 @@ best_som, clusters_sklearn, best_params = train_som_sklearn_with_optimization(
     data, features, param_grid
 )
 
-# Добавляем столбец с кластерами в DataFrame
 data["Cluster_SKLEARN_OPTIMIZED"] = clusters_sklearn
-
 
 # Применяем веса
 for feature, weight in WEIGHTS.items():
@@ -216,19 +207,19 @@ max_cost_of_living = st.sidebar.slider(
 
 # Фильтр по уровню здоровья (Healthy life expectancy)
 min_health = st.sidebar.slider(
-    "Минимальная продолжительность здоровой жизни",
+    "Минимальный индекс продолжительности здоровой жизни",
     min_value=float(data["Healthy life expectancy"].min()),
     max_value=float(data["Healthy life expectancy"].max()),
     value=float(data["Healthy life expectancy"].min()),
     help="Отфильтровать страны, где продолжительность здоровой жизни выше выбранного значения.",
 )
 
-# Фильтр по уровню загрязнения (AQI Value)
+# Фильтр по уровню загрязнения (PM2.5 AQI Value)
 max_aqi = st.sidebar.slider(
     "Максимальный индекс загрязнения воздуха (AQI)",
-    min_value=float(data["AQI Value"].min()),
-    max_value=float(data["AQI Value"].max()),
-    value=float(data["AQI Value"].max()),
+    min_value=float(data["PM2.5 AQI Value"].min()),
+    max_value=float(data["PM2.5 AQI Value"].max()),
+    value=float(data["PM2.5 AQI Value"].max()),
     help="Отфильтровать страны с уровнем загрязнения ниже выбранного значения.",
 )
 
@@ -237,10 +228,10 @@ filtered_data = data[
     (data["Score"] >= min_score)
     & (data["Cost of Living Index"] <= max_cost_of_living)
     & (data["Healthy life expectancy"] >= min_health)
-    & (data["AQI Value"] <= max_aqi)
+    & (data["PM2.5 AQI Value"] <= max_aqi)
 ]
 
-# ---- Статистика ----
+# ---- Метрики ----
 st.sidebar.subheader("Основные метрики")
 st.sidebar.metric(
     label="Средний индекс счастья", value=f"{filtered_data['Score'].mean():.2f}"
@@ -303,7 +294,6 @@ scatter = ax.scatter(
     edgecolors="k",
 )
 
-# Добавление подписей стран
 for i, row in data.iterrows():
     ax.text(
         row["latitude"],
@@ -316,7 +306,6 @@ for i, row in data.iterrows():
         bbox=dict(facecolor="white", alpha=0.5, edgecolor="none"),
     )
 
-# Дополнительные улучшения визуализации
 ax.set_title(
     "Sklearn-SOM: Географическое распределение кластеров",
     fontsize=14,
@@ -326,11 +315,9 @@ ax.set_xlabel("Широта", fontsize=12)
 ax.set_ylabel("Долгота", fontsize=12)
 ax.grid(True, linestyle="--", alpha=0.5)
 
-# Добавление цветовой шкалы
 cbar = fig.colorbar(scatter, ax=ax)
 cbar.set_label("Кластеры", fontsize=12)
 
-# Отображение графика
 st.pyplot(fig)
 
 # Отображаем лучшие параметры
@@ -380,7 +367,7 @@ corr_matrix = filtered_data[
     [
         "Score",
         "Cost of Living Index",
-        "AQI Value",
+        "PM2.5 AQI Value",
         "GDP per capita",
         "Social support",
         "Healthy life expectancy",
@@ -402,7 +389,7 @@ fig = px.scatter(
     filtered_data,
     x="Cost of Living Index",
     y="Score",
-    color="AQI Value",
+    color="PM2.5 AQI Value",
     hover_data=["Country"],
     title="Зависимость счастья от стоимости жизни",
 )
@@ -423,7 +410,6 @@ top_countries = (
 
 fig, ax = plt.subplots(figsize=(10, 6))
 
-# Создаем горизонтальный bar chart
 bars = ax.barh(
     top_countries["Country"],
     top_countries["Total Score"],
@@ -432,7 +418,6 @@ bars = ax.barh(
     ),
 )
 
-# Добавляем цветовую шкалу
 sm = plt.cm.ScalarMappable(
     cmap="coolwarm",
     norm=plt.Normalize(
@@ -444,7 +429,6 @@ fig.colorbar(
     sm, ax=ax, orientation="horizontal", fraction=0.02, pad=0.1, label="Total Score"
 )
 
-# Настройки заголовков и подписей
 ax.set_xlabel("Total Score")
 ax.set_title("Лидеры по качеству жизни: Топ-10 стран", fontsize=16, fontweight="bold")
 ax.set_ylabel("Страна")
@@ -462,10 +446,8 @@ for bar in bars:
         color="black",
     )
 
-# Улучшение отображения
 plt.tight_layout()
 
-# Отображаем график
 st.pyplot(fig)
 
 # ---- Модель предсказывающая уровень счастья населения ----
@@ -474,7 +456,7 @@ st.pyplot(fig)
 X = data[
     [
         "Cost of Living Index",
-        "AQI Value",
+        "PM2.5 AQI Value",
         "GDP per capita",
         "Social support",
         "Healthy life expectancy",
@@ -505,7 +487,10 @@ cost_of_living = st.number_input(
     "Индекс стоимости жизни", min_value=0.0, max_value=100.0, value=50.0
 )
 aqi_value = st.number_input(
-    "Индекс загрязнения (AQI)", min_value=0.0, max_value=500.0, value=50.0
+    "Индекс качества воздуха (PM2.5 AQI Value)",
+    min_value=0.0,
+    max_value=500.0,
+    value=50.0,
 )
 gdp_per_capita = st.number_input("ВВП населения", min_value=0.0, value=1.3)
 social_support = st.number_input(
